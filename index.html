@@ -50,27 +50,27 @@ function updateWeather(){
 
 function drawWeather(){
     console.log('drawWeather')
-    $("[LL_REPTAG_MYID /]-locationInput").val("")
-    $("#[LL_REPTAG_MYID /]-location").html(weather.currentLocation)
-    $("#[LL_REPTAG_MYID /]-temperature").html(weather.temperature+"°");
-    $("#[LL_REPTAG_MYID /]-conditionMain").html(weather.conditionMain);
-    $("#[LL_REPTAG_MYID /]-conditionSub").html(weather.conditionSub);
+    $("locationInput").val("")
+    $("#location").html(weather.currentLocation)
+    $("#temperature").html(weather.temperature+"°");
+    $("#conditionMain").html(weather.conditionMain);
+    $("#conditionSub").html(weather.conditionSub);
     if(weather.conditionMain==="Clouds"){
         // $("#imagePlaceholder").html(`<img src="[LL_REPTAG_LIBPATH /]assets/cloudy.svg">`)
-        $(".ciww-container").css({backgroundImage: `url(' [LL_REPTAG_LIBPATH /]assets/cloudy.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
+        $(".ciww-container").css({backgroundImage: `url(' assets/cloudy.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
         // url('[LL_REPTAG_LIBPATH /]assets/cloudy.svg')})
     }
     if(weather.conditionMain==="Sunny" || weather.conditionMain==="Clear"){
         // $("#imagePlaceholder").html(`<img src="[LL_REPTAG_LIBPATH /]assets/day.svg">`)
-        $(".ciww-container").css({backgroundImage: `url(' [LL_REPTAG_LIBPATH /]assets/day.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
+        $(".ciww-container").css({backgroundImage: `url(' assets/day.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
     }
     if(weather.conditionMain==="Rain"){
         // $("#imagePlaceholder").html(`<img src="[LL_REPTAG_LIBPATH /]assets/rainy-5.svg">`)
-        $(".ciww-container").css({backgroundImage: `url(' [LL_REPTAG_LIBPATH /]assets/rainy-5.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
+        $(".ciww-container").css({backgroundImage: `url(' assets/rainy-5.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
     }
     if(weather.conditionMain==="Thunderstorm"){
         // $("#imagePlaceholder").html(`<img src="[LL_REPTAG_LIBPATH /]assets/thunder.svg">`)
-        $(".ciww-container").css({backgroundImage: `url(' [LL_REPTAG_LIBPATH /]assets/thunder.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
+        $(".ciww-container").css({backgroundImage: `url(' assets/thunder.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
     }
     else{
         
@@ -79,25 +79,25 @@ function drawWeather(){
 
 
 // function getLocation(){
-if(localStorage.getItem('[LL_REPTAG_MYID /]-savedLocation')!=null){
-    console.log(localStorage.getItem('[LL_REPTAG_MYID /]-savedLocation'))
-    $("#[LL_REPTAG_MYID /]-locationInput").val(localStorage.getItem('[LL_REPTAG_MYID /]-savedLocation'))
-    weather.location=localStorage.getItem('[LL_REPTAG_MYID /]-savedLocation')
+if(localStorage.getItem('savedLocation')!=null){
+    console.log(localStorage.getItem('savedLocation'))
+    $("#locationInput").val(localStorage.getItem('savedLocation'))
+    weather.location=localStorage.getItem('savedLocation')
     updateWeather();
 }
 // }
 
 // clear input box on click
-$("#[LL_REPTAG_MYID /]-locationInput").on("click", function(){
-    $("#[LL_REPTAG_MYID /]-locationInput").val("")
+$("#locationInput").on("click", function(){
+    $("#locationInput").val("")
 })
 
 
 $(".ciww-location-form1").submit(function(event){
   event.preventDefault()
-  weather.location=$("#[LL_REPTAG_MYID /]-locationInput").val()
+  weather.location=$("#locationInput").val()
   console.log("current location: "+weather.location)
-  localStorage.setItem("[LL_REPTAG_MYID /]-savedLocation", $("#[LL_REPTAG_MYID /]-locationInput").val())
+  localStorage.setItem("savedLocation", $("#locationInput").val())
     updateWeather()
 })
 
