@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <title>Weather</title>
 </head>
-
+Hello
 <body>
 
 </body>
@@ -42,10 +44,10 @@ function updateWeather(){
             drawWeather()
         },
         error: function(response, request){
-            $("#[LL_REPTAG_MYID /]-locationInput").val("City not found")
+            $("#locationInput").val("City not found")
         }
     })
-    
+
 }
 
 function drawWeather(){
@@ -57,26 +59,58 @@ function drawWeather(){
     $("#conditionSub").html(weather.conditionSub);
     if(weather.conditionMain==="Clouds"){
         // $("#imagePlaceholder").html(`<img src="[LL_REPTAG_LIBPATH /]assets/cloudy.svg">`)
-        $(".ciww-container").css({backgroundImage: `url(' assets/cloudy.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
+        $(".ciww-container").css({backgroundImage: `url(' ./assets/cloudy.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
         // url('[LL_REPTAG_LIBPATH /]assets/cloudy.svg')})
     }
     if(weather.conditionMain==="Sunny" || weather.conditionMain==="Clear"){
         // $("#imagePlaceholder").html(`<img src="[LL_REPTAG_LIBPATH /]assets/day.svg">`)
-        $(".ciww-container").css({backgroundImage: `url(' assets/day.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
+        $(".ciww-container").css({backgroundImage: `url(' ./assets/day.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
     }
     if(weather.conditionMain==="Rain"){
         // $("#imagePlaceholder").html(`<img src="[LL_REPTAG_LIBPATH /]assets/rainy-5.svg">`)
-        $(".ciww-container").css({backgroundImage: `url(' assets/rainy-5.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
+        $(".ciww-container").css({backgroundImage: `url(' ./assets/rainy-5.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
     }
     if(weather.conditionMain==="Thunderstorm"){
         // $("#imagePlaceholder").html(`<img src="[LL_REPTAG_LIBPATH /]assets/thunder.svg">`)
-        $(".ciww-container").css({backgroundImage: `url(' assets/thunder.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
+        $(".ciww-container").css({backgroundImage: `url(' ./assets/thunder.svg ')`, "backgroundSize":"cover", "backgroundPosition":"Top"})
     }
     else{
-        
+
     }
 }
 
+function drawIndoorTemperatureChart() {
+    //draw chart
+    var ctx = $("#tempChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'thermostat target history:',
+                data: thermostat.tempArray.slice(thermostat.tempArray.length - 7, thermostat.tempArray.length-1),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                scaleStepWidth: 1,
+                scaleSteps: 6,
+                scaleOverride: true,
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }]
+            }
+        }
+    });
+}
 
 // function getLocation(){
 if(localStorage.getItem('savedLocation')!=null){

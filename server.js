@@ -1,37 +1,34 @@
-require("dotenv").config();
-var express = require("express");
-var exphbs = require("express-handlebars");
-var axios = require("axios");
-var cheerio = require("cheerio");
-var mongoose = require("mongoose");
-var db = require("./models");
+var http = require("http");
+var fs = require("fs");
 
-var app = express();
-var PORT = process.env.PORT || 3101;
+const port = 3100
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(express.static("public"));
+var server=http.createServer(doThings)
 
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
-  })
-);
-app.set("view engine", "handlebars");
+function doThings(req, res){
 
-require("./routes/htmlRoutes")(app);
+    var path = req.url;
 
-// mongoose.connect("mongodb://localhost/newsScraper", { useNewUrlParser: true });
+    // Depending on the URL, display a different HTML file.
+    switch (path) {
 
-app.listen(PORT, function() {
-  console.log(
-    "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
-    PORT,
-    PORT
-  );
-});
-// });
+    case "/":
+      return displayRoot(path, req, res);
 
-module.exports = app;
+    default:
+      return displayRoot(path, req, res);
+    }
+}
+function displayRoot(url, req, res)
+{
+    fs.readFile(`${__dirname}/index.html`, function(err, data){
+        res.writeHead(200, {
+            "content-type":"text/html"
+        })
+    res.end(data)
+    })
+}
+
+server.listen(port, function() {
+    console.log("Server is listening on PORT: " + port);
+  });
